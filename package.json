@@ -1,0 +1,28 @@
+{
+  "name": "panaderia-api",
+  "version": "0.0.1",
+  "description": "api for proyecto-panaderia",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcom25/panaderia-api.git"
+  },
+  "author": "Marco Mignacco & Sebastian Ponce",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcom25/panaderia-api/issues"
+  },
+  "homepage": "https://github.com/marcom25/panaderia-api#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.15"
+  }
+}
