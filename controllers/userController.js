@@ -1,13 +1,18 @@
-const { rawListeners } = require("process");
+
 
 const {register, login} = require('../models/userModel');
 
 module.exports.registerController = async (req, res) => {
     const {username, email, password} = req.body;
-
+    
     try {
         const user = await register(username, email, password);
-        return res.status(200).send(user);
+        if(user) {
+            return res.status(200).send(user);
+        } else {
+            return res.status(401).send('Usuario o email ya existentes');
+        }
+        
     } catch (error) {
         console.log(error);
     }
@@ -23,7 +28,7 @@ module.exports.loginController = async (req, res) => {
             return res.status(200).send(user);
         }
         else {
-            return res.status(200).send(user);
+            return false;
         }
 
 
