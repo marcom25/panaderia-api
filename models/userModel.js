@@ -15,10 +15,9 @@ module.exports.register = async (username, email, password) => {
   }
 
   const user = await request(`
-        INSERT INTO users (user, email, password)
-        VALUE ('${username}', '${email}', '${hashedPassword}')
+      INSERT INTO users (user, email, password)
+      VALUE ('${username}', '${email}', '${hashedPassword}')
     `);
-
   delete user.password;
   return {
     id: user.inserId,
@@ -27,8 +26,10 @@ module.exports.register = async (username, email, password) => {
 
 module.exports.login = async (email, password) => {
   const user = await request(`
-        SELECT * FROM users WHERE email = '${email}'
+      SELECT * FROM users WHERE email = '${email}'
     `);
+
+  console.log(email);
 
   if (user && comparePassword(password, user.password)) {
     delete user.password;
@@ -37,43 +38,41 @@ module.exports.login = async (email, password) => {
       ...user,
     };
   }
-
-  console.log("Entro al false");
-
   return {
+    
     isUser: false,
   };
 };
 
 module.exports.recoverPassword = async (email, password, comparePassword) => {
   const user = await request(`
-        SELECT * FROM users WHERE email = '${email}'
+    SELECT * FROM users WHERE email = '${email}'
     `);
 
   if (user) {
     if (password === comparePassword) {
       const changePassword = await request(`
-            UPDATE users SET password = '${password}' WHERE email = '${email}'
+        UPDATE users SET password = '${password}' WHERE email = '${email}'
         `);
-        console.log(`changePassword: ${changePassword}`);
+      console.log(`changePassword: ${changePassword}`);
       return {
         registeredMail: true,
         samePassword: true,
         changedPassword: true,
-        changePassword
+        changePassword,
       };
     }
-    
+
     return {
-        registeredMail: true,
-        samePassword: false,
-        changedPassword: false
-    }
+      registeredMail: true,
+      samePassword: false,
+      changedPassword: false,
+    };
   }
 
   return {
     registeredMail: false,
     samePassword: false,
-    changedPassword: false
+    changedPassword: false,
   };
 };
