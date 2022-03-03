@@ -1,6 +1,5 @@
-
-
-const {register, login} = require('../models/userModel');
+const { register, login } = require("../models/userModel");
+const { msToDaysParser } = require("../utils/msToDaysParser");
 
 module.exports.registerController = async (req, res) => {
     const {username, email, password} = req.body;
@@ -32,4 +31,5 @@ module.exports.loginController = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-}
+  
+};
