@@ -16,7 +16,7 @@ module.exports.request = (query) => new Promise((res, rej) => {
     connection.query(query, (error, results, fields) => {
         if (error) rej(error);
  
-        console.log('results', results); 
+        
 
         if(results.length <= 1) {
             res(results[0])
