@@ -1,5 +1,6 @@
-const { register, login } = require("../models/userModel");
+const { register, login, recoverPassword } = require("../models/userModel");
 const { msToDaysParser } = require("../utils/msToDaysParser");
+const { createToken } = require("../utils/token");
 
 module.exports.registerController = async (req, res) => {
     const {username, email, password} = req.body;
@@ -23,6 +24,13 @@ module.exports.loginController = async (req, res) => {
     try {
         const user = await login(email, password);
         if (user.isUser) {
+            const token = createToken(user);
+    
+            res.cookie('session', token, {
+                maxAge: msToDaysParser(4),
+                httpOnly: true
+            });
+
             return res.status(200).send(user);
         }
         
@@ -33,3 +41,15 @@ module.exports.loginController = async (req, res) => {
     }
   
 };
+
+module.exports.recoverPasswordController = async (req, res) => {
+    const {email, password, passwordCompare} = req.body;
+
+    try {
+        const user = await recoverPassword(email, password, passwordCompare);
+        return res.status(200).send(user);
+        
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -6,6 +6,9 @@ const app = express();
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/loginRoute');
 const productsRoute = require('./routes/productsRoute');
+const cookieRoute = require('./routes/cookieRoute');
+const changePasswordRoute = require('./routes/changePasswordRoute');
+
 
 
 
@@ -18,6 +21,7 @@ app.use('/register', registerRoute);
 app.use('/login', loginRoute);
 app.use('/products', productsRoute);
 app.use('/cookies', cookieRoute);
+app.use('/changePassword', changePasswordRoute);
 
 
 app.listen(PORT, () => console.log(`SERVER UP AT ${PORT}`));

@@ -44,3 +44,36 @@ module.exports.login = async (email, password) => {
     isUser: false,
   };
 };
+
+module.exports.recoverPassword = async (email, password, comparePassword) => {
+  const user = await request(`
+        SELECT * FROM users WHERE email = '${email}'
+    `);
+
+  if (user) {
+    if (password === comparePassword) {
+      const changePassword = await request(`
+            UPDATE users SET password = '${password}' WHERE email = '${email}'
+        `);
+        console.log(`changePassword: ${changePassword}`);
+      return {
+        registeredMail: true,
+        samePassword: true,
+        changedPassword: true,
+        changePassword
+      };
+    }
+    
+    return {
+        registeredMail: true,
+        samePassword: false,
+        changedPassword: false
+    }
+  }
+
+  return {
+    registeredMail: false,
+    samePassword: false,
+    changedPassword: false
+  };
+};
