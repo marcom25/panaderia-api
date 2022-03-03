@@ -10,7 +10,7 @@ module.exports.registerController = async (req, res) => {
         if(user) {
             return res.status(200).send(user);
         } else {
-            return res.status(401).send('Usuario o email ya existentes');
+            return res.status(401).send(user);
         }
         
     } catch (error) {
@@ -22,17 +22,14 @@ module.exports.loginController = async (req, res) => {
     const {email, password} = req.body;
 
     try {
-        
         const user = await login(email, password);
         if (user.isUser) {
             return res.status(200).send(user);
         }
-        else {
-            return false;
-        }
-
-
-    } catch (error) {
         
+        return res.status(404).send(user);
+        
+    } catch (error) {
+        console.log(error);
     }
 }
