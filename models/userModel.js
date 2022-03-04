@@ -51,8 +51,9 @@ module.exports.recoverPassword = async (email, password, comparePassword) => {
 
   if (user) {
     if (password === comparePassword) {
+      const hashedPassword = hashPassword(password);
       const changePassword = await request(`
-        UPDATE users SET password = '${password}' WHERE email = '${email}'
+        UPDATE users SET password = '${hashedPassword}' WHERE email = '${email}'
         `);
       console.log(`changePassword: ${changePassword}`);
       return {

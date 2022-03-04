@@ -2,6 +2,8 @@ const { register, login, recoverPassword } = require("../models/userModel");
 const { msToDaysParser } = require("../utils/msToDaysParser");
 const { createToken } = require("../utils/token");
 
+
+
 module.exports.registerController = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -22,12 +24,12 @@ module.exports.loginController = async (req, res) => {
 
   try {
     const user = await login(email, password);
-    if (user.isUser) {
-      const token = createToken(user);
+    const token = createToken(user);
 
-      res.cookie("session", token, {
+    if (user.isUser) {
+      res.cookie('session', token, {
         maxAge: msToDaysParser(4),
-        httpOnly: true,
+        httpOnly: true
       });
 
       return res.status(200).send(user);
