@@ -8,7 +8,7 @@ const { msToDaysParser } = require('../utils/msToDaysParser');
 
 router.get('/set', (req, res) => {
     
-    res.cookie("isEmployee", true, {
+    res.cookie("isInSession", true, {
         maxAge: msToDaysParser(1),
     });
     

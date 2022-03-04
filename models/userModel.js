@@ -39,12 +39,11 @@ module.exports.login = async (email, password) => {
     };
   }
   return {
-    
     isUser: false,
   };
 };
 
-module.exports.recoverPassword = async (email, password, comparePassword) => {
+module.exports.recoverPassword = async (email, password) => {
   const user = await request(`
     SELECT * FROM users WHERE email = '${email}'
     `);
@@ -55,20 +54,14 @@ module.exports.recoverPassword = async (email, password, comparePassword) => {
       const changePassword = await request(`
         UPDATE users SET password = '${hashedPassword}' WHERE email = '${email}'
         `);
-      console.log(`changePassword: ${changePassword}`);
-      return {
-        registeredMail: true,
-        samePassword: true,
-        changedPassword: true,
-        changePassword,
-      };
-    }
-
+    console.log(`changePassword: ${changePassword}`);
     return {
       registeredMail: true,
-      samePassword: false,
-      changedPassword: false,
+      samePassword: true,
+      changedPassword: true,
+      changePassword,
     };
+
   }
 
   return {
@@ -76,4 +69,5 @@ module.exports.recoverPassword = async (email, password, comparePassword) => {
     samePassword: false,
     changedPassword: false,
   };
-};
+}
+}

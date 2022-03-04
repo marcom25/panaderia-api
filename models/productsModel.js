@@ -1,14 +1,14 @@
 const {request} = require('../db/mysql');
 
 module.exports.productsModel = async () => {
-    const product = await request(`
+    const products = await request(`
         SELECT * FROM products
     `);
 
     
     return {
-        idData: (product) ? true: false,
-        data: product
+        idData: products.length ? true: false,
+        data: [...products]
     }
 }
 
