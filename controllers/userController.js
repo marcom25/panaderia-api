@@ -40,10 +40,10 @@ module.exports.loginController = async (req, res) => {
 };
 
 module.exports.recoverPasswordController = async (req, res) => {
-  const { email, password, passwordCompare } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await recoverPassword(email, password, passwordCompare);
+    const user = await recoverPassword(email, password,);
     return res.status(200).send(user);
   } catch (error) {
     console.log(error);
