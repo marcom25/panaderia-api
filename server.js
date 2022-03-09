@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const logger = require('morgan');
 
 const app = express();
 
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 8050;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(logger('dev'));
 
 app.get('/', (req, res) => res.send('te conectaste al server'));
 
