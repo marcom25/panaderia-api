@@ -43,10 +43,11 @@ module.exports.login = async (email, password) => {
   };
 };
 
-module.exports.recoverPassword = async (email, password) => {
+module.exports.recoverPassword = async (email, password, comparePassword) => {
   const user = await request(`
     SELECT * FROM users WHERE email = '${email}'
     `);
+  console.log('user en model:', user);
 
   if (user) {
     if (password === comparePassword) {
@@ -54,20 +55,23 @@ module.exports.recoverPassword = async (email, password) => {
       const changePassword = await request(`
         UPDATE users SET password = '${hashedPassword}' WHERE email = '${email}'
         `);
-    console.log(`changePassword: ${changePassword}`);
+      console.log(`changePassword:`, user.password);
+      return {
+        registeredMail: true,
+        samePassword: true,
+        changedPassword: true,
+        newPassword: user.password
+      };
+    }
+
     return {
       registeredMail: true,
-      samePassword: true,
-      changedPassword: true,
-      changePassword,
+      samePasswords: false,
+      changedPassword: false
     };
-
   }
 
   return {
-    registeredMail: false,
-    samePassword: false,
-    changedPassword: false,
+    registeredMail: false
   };
-}
 }

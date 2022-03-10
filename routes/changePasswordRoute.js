@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {recoverPasswordController} = require('../controllers/userController');
 
-router.patch('/', recoverPasswordController);
+router.put('/', recoverPasswordController);
 
 module.exports = router;
 
