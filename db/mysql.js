@@ -1,16 +1,14 @@
-
-
 const database = require('mime-db');
 const mysql = require('mysql');
 
 module.exports.request = (query) => new Promise((res, rej) => {
 
     const connection = mysql.createConnection({
-        host: 'db4free.net',
+        host: 'sql10.freesqldatabase.com',
         port: 3306,
-        user: 'proyectopan123',
-        password: 'Pan12345',
-        database: 'proyectopan123'
+        user: 'sql10592896',
+        password: 'VHfaHQygli',
+        database: 'sql10592896'
     });
 
     connection.query(query, (error, results, fields) => {
