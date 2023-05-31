@@ -6,9 +6,9 @@ module.exports.request = (query) => new Promise((res, rej) => {
     const connection = mysql.createConnection({
         host: 'sql10.freesqldatabase.com',
         port: 3306,
-        user: 'sql10606333',
-        password: 'ptsGKBMsiq',
-        database: 'sql10606333'
+        user: 'sql10622812',
+        password: 'KTj5afQSMF',
+        database: 'sql10622812'
     });
 
     connection.query(query, (error, results, fields) => {
